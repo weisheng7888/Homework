@@ -135,6 +135,7 @@ int main() {
 | 測試三   | 2            | a b      | () (a) (b) (a,b)   | () (a) (b) (a,b)
 | 測試四   | 3            | a b c    | () (a) (b) (c) (a,b) (c) (a,c) (b,c) (a,b,c)    | () (a) (b) (c) (a,b) (c) (a,c) (b,c) (a,b,c)
 
+### 編譯與執行指令
 ```cpp
 C:\Users\weish\datastructure>g++ -std=c++17 -o Problem2 Problem2.cpp
 

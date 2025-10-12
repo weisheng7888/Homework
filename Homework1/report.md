@@ -131,8 +131,24 @@ int main() {
 | 測試二   | 1            | a        | () (a)   | () (a)
 | 測試三   | 2            | a b      | () (a) (b) (a,b)   | () (a) (b) (a,b)
 | 測試四   | 3            | a b c    | () (a) (b) (c) (a,b) (c) (a,c) (b,c) (a,b,c)    | () (a) (b) (c) (a,b) (c) (a,c) (b,c) (a,b,c)
-<img width="905" height="286" alt="image" src="https://github.com/user-attachments/assets/70c7180a-2b92-4000-b7e0-daea90cc8d34" />
 
+```cpp
+C:\Users\weish\datastructure>g++ -std=c++17 -o Problem2 Problem2.cpp
+
+C:\Users\weish\datastructure>Problem2
+請輸入集合大小 n: 3
+請輸入 3 個元素:
+a b c
+Power set:
+()
+(c)
+(b)
+(b,c)
+(a)
+(a,c)
+(a,b)
+(a,b,c)
+```
 
 ## 申論及開發報告
 ### 選擇遞迴的原因

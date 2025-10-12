@@ -53,7 +53,12 @@ int main() {
 | 測試四   | (1,1)        | 3        | 3        |
 | 測試五   | (4,2)        | Stack overflow | Stack overflow |
 
-<img width="248" height="59" alt="image" src="https://github.com/user-attachments/assets/e6376240-d7c4-48d0-b786-82ea419d8405" />
+```cpp
+C:\Users\weish\datastructure>g++ -std=c++17 -o Problem1 Problem1.cpp
+C:\Users\weish\datastructure>Problem1
+Enter m n: 1 0
+Ackermann(1,0) = 2
+```
 
 ## 申論及開發報告
 ### 選擇遞迴的原因

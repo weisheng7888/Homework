@@ -170,47 +170,73 @@ ostream& operator<<(ostream&, const Polynomial&)
 以下為主要代碼:
 ```cpp
 #include <iostream>
-#include <cmath>   // for pow()
+#include <cmath> 
+#include <algorithm> 
 using namespace std;
 
 class Polynomial;
 
 class Term {
     friend class Polynomial;
+    friend ostream& operator<<(ostream& os, const Polynomial& poly);
 private:
-    float coef; // 係數
-    int exp;    // 指數
+    float coef;
+    int exp;
 };
 
 class Polynomial {
 private:
-    Term *termArray;
+    Term* termArray;
     int capacity;
-    int terms;  // 實際項數
+    int terms;
+
+    void expandCapacity() {
+        capacity *= 2;
+        Term* temp = new Term[capacity];
+        for (int i = 0; i < terms; i++)
+            temp[i] = termArray[i];
+        delete[] termArray;
+        termArray = temp;
+    }
+
 public:
     Polynomial() : capacity(2), terms(0) {
         termArray = new Term[capacity];
     }
+
     ~Polynomial() {
         delete[] termArray;
     }
 
-    void newTerm(const float coef, const int exp) {
-        if (coef == 0) return;
-        if (terms == capacity) {
-            capacity *= 2;
-            Term *temp = new Term[capacity];
-            for (int i = 0; i < terms; i++)
-                temp[i] = termArray[i];
-            delete[] termArray;
-            termArray = temp;
+    Polynomial(const Polynomial& other) : capacity(other.capacity), terms(other.terms) {
+        termArray = new Term[capacity];
+        for (int i = 0; i < terms; i++) {
+            termArray[i] = other.termArray[i];
         }
-        termArray[terms].coef = coef;
-        termArray[terms++].exp = exp;
     }
 
-    // 加法
-    Polynomial Add(const Polynomial &b) const {
+    Polynomial& operator=(const Polynomial& other) {
+        if (this != &other) {
+            delete[] termArray;
+            capacity = other.capacity;
+            terms = other.terms;
+            termArray = new Term[capacity];
+            for (int i = 0; i < terms; i++) {
+                termArray[i] = other.termArray[i];
+            }
+        }
+        return *this;
+    }
+
+    void newTerm(const float coef, const int exp) {
+        if (coef == 0) return;
+        if (terms == capacity) expandCapacity();
+        termArray[terms].coef = coef;
+        termArray[terms].exp = exp;
+        terms++;
+    }
+
+    Polynomial Add(const Polynomial& b) const {
         Polynomial c;
         int aPos = 0, bPos = 0;
         while (aPos < terms && bPos < b.terms) {
@@ -219,10 +245,12 @@ public:
                 if (sum != 0)
                     c.newTerm(sum, termArray[aPos].exp);
                 aPos++; bPos++;
-            } else if (termArray[aPos].exp > b.termArray[bPos].exp) {
+            }
+            else if (termArray[aPos].exp > b.termArray[bPos].exp) {
                 c.newTerm(termArray[aPos].coef, termArray[aPos].exp);
                 aPos++;
-            } else {
+            }
+            else {
                 c.newTerm(b.termArray[bPos].coef, b.termArray[bPos].exp);
                 bPos++;
             }
@@ -234,13 +262,13 @@ public:
         return c;
     }
 
-    // 乘法
-    Polynomial Mult(const Polynomial &b) const {
+    Polynomial Mult(const Polynomial& b) const {
         Polynomial c;
         for (int i = 0; i < terms; i++) {
             for (int j = 0; j < b.terms; j++) {
                 float newCoef = termArray[i].coef * b.termArray[j].coef;
                 int newExp = termArray[i].exp + b.termArray[j].exp;
+
                 bool found = false;
                 for (int k = 0; k < c.terms; k++) {
                     if (c.termArray[k].exp == newExp) {
@@ -256,7 +284,6 @@ public:
         return c;
     }
 
-    // 代入 x 計算值
     float Eval(float x) const {
         float result = 0;
         for (int i = 0; i < terms; i++) {
@@ -265,27 +292,39 @@ public:
         return result;
     }
 
-    // 多項式輸入
     friend istream& operator>>(istream& is, Polynomial& poly) {
+        delete[] poly.termArray;
+        poly.capacity = 2;
+        poly.terms = 0;
+        poly.termArray = new Term[poly.capacity];
+
         int n;
         cout << "Enter number of terms: ";
-        is >> n;
+        if (!(is >> n)) return is;
+
         for (int i = 0; i < n; i++) {
-            float c;
-            int e;
+            float c; int e;
             cout << "Enter coefficient and exponent: ";
-            is >> c >> e;
+            if (!(is >> c >> e)) {
+                cout << "Invalid input. Enter two numbers: ";
+                is.clear();
+                is.ignore(1000, '\n');
+                i--;
+                continue;
+            }
             poly.newTerm(c, e);
         }
         return is;
     }
 
-    // 多項式輸出
     friend ostream& operator<<(ostream& os, const Polynomial& poly) {
+        if (poly.terms == 0) {
+            os << "0";
+            return os;
+        }
         for (int i = 0; i < poly.terms; i++) {
             os << poly.termArray[i].coef << "x^" << poly.termArray[i].exp;
-            if (i != poly.terms - 1)
-                os << " + ";
+            if (i != poly.terms - 1) os << " + ";
         }
         return os;
     }
@@ -315,8 +354,6 @@ int main() {
 
     return 0;
 }
-
-
 ```
 
 ## 效能分析

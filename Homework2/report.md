@@ -4,7 +4,8 @@
 
 ### Problem 1
 ## 解題說明
-本題要求將Ackermann函數轉寫成C++程式
+本題要求實作一個「多項式 (Polynomial) 類別」  
+加法 (Add)、乘法 (Mult)、代入求值 (Eval)  
 
 ## 解題策略
 1. 使用遞迴函式

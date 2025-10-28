@@ -137,22 +137,10 @@ Eval() :
 ## 測試與驗證
 
 ### 測試案例
-
-| 測試案例 | 輸入參數 (m,n) | 預期輸出 | 實際輸出 |
-|----------|--------------|----------|----------|
-| 測試一   | (0,0)        | 1        | 1        |
-| 測試二   | (0,1)        | 2        | 2        |
-| 測試三   | (1,0)        | 2        | 2        |
-| 測試四   | (1,1)        | 3        | 3        |
-| 測試五   | (4,2)        | Stack overflow | Stack overflow |
+在Problem 2中  
 
 ### 編譯與執行指令
-```cpp
-C:\Users\weish\datastructure>g++ -std=c++17 -o Problem1 Problem1.cpp
-C:\Users\weish\datastructure>Problem1
-Enter m n: 1 0
-Ackermann(1,0) = 2
-```
+在Problem 2中  
 
 ## 申論及開發報告
 ### 選擇遞迴的原因

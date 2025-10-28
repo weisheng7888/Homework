@@ -89,7 +89,6 @@ Polynomial Polynomial::Add(const Polynomial& b) {
     return c;
 }
 
-// 多項式乘法
 Polynomial Polynomial::Mult(const Polynomial& b) {
     Polynomial c;
 
@@ -98,7 +97,6 @@ Polynomial Polynomial::Mult(const Polynomial& b) {
             float newCoef = termArray[i].coef * b.termArray[j].coef;
             int newExp = termArray[i].exp + b.termArray[j].exp;
 
-            // 檢查 c 是否已經有相同次方
             bool found = false;
             for (int k = 0; k < c.terms; k++) {
                 if (c.termArray[k].exp == newExp) {
@@ -114,7 +112,6 @@ Polynomial Polynomial::Mult(const Polynomial& b) {
     return c;
 }
 
-// 代入 x 計算多項式值
 float Polynomial::Eval(float x) {
     float result = 0;
     for (int i = 0; i < terms; i++) {

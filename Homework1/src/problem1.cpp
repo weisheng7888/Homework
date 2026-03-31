@@ -6,14 +6,13 @@ using namespace std;
 template <class T>
 class MinHeap {
 private:
-    T* heap;          // 動態陣列
-    int capacity;     // 總容量
-    int heapSize;     // 目前元素數量
+    T* heap;
+    int capacity;
+    int heapSize;
 
-    // 擴充陣列空間
     void ChangeSize1D(int newSize) {
         T* temp = new T[newSize];
-        for (int i = 1; i <= heapSize; i++) { // 從 1 開始複製
+        for (int i = 1; i <= heapSize; i++) {
             temp[i] = heap[i];
         }
         delete[] heap;
@@ -22,18 +21,20 @@ private:
     }
 
 public:
-    // 建構子
     MinHeap(int cap = 10) : capacity(cap), heapSize(0) {
         heap = new T[capacity + 1];
     }
 
-    // 解構子
-    ~MinHeap() { delete[] heap; }
+    ~MinHeap() { 
+        delete[] heap; 
+    }
 
-    bool IsEmpty() const { return heapSize == 0; }
+    bool IsEmpty() const { 
+        return heapSize == 0; 
+    }
 
     const T& Top() const {
-        if (IsEmpty()) throw "Heap is empty!";
+        if (IsEmpty()) throw "Heap is empty.";
         return heap[1];
     }
 
@@ -41,8 +42,7 @@ public:
         if (heapSize == capacity) {
             ChangeSize1D(2 * capacity + 1);
         }
-
-        // 向上過濾 (Sifting Up)
+        
         int currentNode = ++heapSize;
         while (currentNode != 1 && heap[currentNode / 2] > x) {
             heap[currentNode] = heap[currentNode / 2];
@@ -52,18 +52,14 @@ public:
     }
 
     void Pop() {
-        if (IsEmpty()) throw "Heap is empty, cannot pop!";
-
-        // 取出最後一個元素來填補根部
+        if (IsEmpty()) throw "Heap is empty.";
+        
         T lastElt = heap[heapSize--];
-
-        // 向下過濾 (Sifting Down)
         int currentNode = 1;
         int child = 2; 
-        while (child <= heapSize) {
-            // 挑選較小的子節點
-            if (child < heapSize && heap[child] > heap[child + 1]) child++;
 
+        while (child <= heapSize) {
+            if (child < heapSize && heap[child] > heap[child + 1]) child++;
             if (lastElt <= heap[child]) break;
 
             heap[currentNode] = heap[child];

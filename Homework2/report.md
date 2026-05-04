@@ -467,12 +467,11 @@ Floyd      |   O(V3)       |   O(V2)       |   三層迴圈遍歷所有頂點組
 TopologicalSort | O(V+E)   |   O(V)        |   線性時間掃描入度。   
 
 ## 測試與驗證
+### 測試案例
 <img width="540" height="969" alt="image" src="https://github.com/user-attachments/assets/15ea35d4-19fa-4930-a303-f8c593638e7c" />
 <img width="547" height="1005" alt="image" src="https://github.com/user-attachments/assets/17d34012-9b8d-4c06-bc59-af6e6f683e41" />
 <img width="469" height="204" alt="image" src="https://github.com/user-attachments/assets/ef8de474-8c6c-4f34-9a4a-7e7c0fea08ab" />
 
-
-### 測試案例
   
 
 ### 編譯與執行指令

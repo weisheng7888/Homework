@@ -458,7 +458,13 @@ int main() {
 ```
 
 ## 效能分析
-
+演算法     |   時間複雜度   |   空間複雜度   |   說明   
+DFS / BFS  |   O(V+E)      |   O(V)        |   頂點數 V，邊數 E。   
+Kruskal    |   O(ElogE)    |   O(V+E)      |   主要耗時在邊的排序。   
+Prim       |   O(V2)       |   O(V)        |   目前實作未使用優先權佇列優化，適合稠密圖。   
+Dijkstra   |   O(ElogV)    |   O(V)        |   使用 priority_queue 實作。   
+Floyd      |   O(V3)       |   O(V2)       |   三層迴圈遍歷所有頂點組合。   
+TopologicalSort | O(V+E)   |   O(V)        |   線性時間掃描入度。   
 
 ## 測試與驗證
 <img width="540" height="969" alt="image" src="https://github.com/user-attachments/assets/15ea35d4-19fa-4930-a303-f8c593638e7c" />
